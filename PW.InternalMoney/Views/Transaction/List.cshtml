@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PW.InternalMoney.Models.TransactionListItem>
+
+@{
+    ViewBag.Title = "Transactions list";
+
+}
+<br />
+
+<input class="form-control py-2" type="text" id="correspondentSearchInput" onkeyup="FilterCorrespondentsByName()" placeholder="Search for correspondent names..">
+
+<table id="dtHistory" class="table table-striped table-bordered table-sm sortable" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th class="th-sm" data-defaultsign="time">
+                Date/Time
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm" data-defaultsign="AZ">
+                Correspondent Name
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm" data-defaultsign="_19">
+                Amount
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm">
+                Operations
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Date</td>
+            <td>@item.CorrespondentName</td>
+            <td>@item.TransactionAmount</td>
+            <td>
+                <a href="@Url.Action("Create", "Transaction", new { id=@item.TransactionId })" class="btn btn-info">
+                    Repeat transaction
+                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Date/Time
+            </th>
+            <th>
+                Correspondent Name
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Operations
+            </th>
+        </tr>
+    </tfoot>
+</table>

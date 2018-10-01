@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Create a new transaction";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<script src="https://rawgit.com/aguirrel/ng-currency/latest/dist/ng-currency.js"></script>
+<script src="https://unpkg.com/angular-i18n/angular-locale_es-ar.js"></script>
+
+<form name="myForm">
+    <div ng-app="Transaction">
+        <div ng-controller="TransactionController">
+
+            @if (ViewBag.BillingAccountsList != null)
+            {
+                <div ng-init="initRecipients(@Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.BillingAccountsList))"></div>
+            }
+
+            @if (ViewBag.SelectedRecipientId != null)
+            {
+                <div ng-init="initSelectedRecipientId(selectedRecipientId='@Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.SelectedRecipientId)')"></div>
+            }
+
+            @if (@ViewBag.MaxTransaction != null)
+            {
+                <div ng-init="initMaxTransaction(maxTransaction='@Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.MaxTransaction)')"></div>
+            }
+
+            @if (@ViewBag.TransactionAmount != null)
+            {
+                <div ng-init="initTransactionAmount(transactionAmount='@Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.TransactionAmount)')"></div>
+            }
+
+            @if (ViewBag.InitialRecipient != null)
+            {
+                <div ng-init="initInitialRecipient(initialRecipient='@ViewBag.InitialRecipient')"></div>
+            }
+
+            Enter recipient name:
+            <div angucomplete-alt
+                 id="recipientAutocompleteField"
+                 placeholder="Type recipient name"
+                 pause="100"
+                 selected-object="SelectedRecipientFn"
+                 local-data="Recipients"
+                 search-fields="name"
+                 title-field="name"
+                 minlength="1"
+                 input-class="form-control form-control-small"
+                 match-class="highlight"
+                 input-name="recipientAutocompleteInput"
+                 initial-value="InitialRecipient">
+            </div>
+
+            <hr>
+            Transaction amount number:
+            @{
+                var minTransaction = "0.01";
+                var maxTransaction = Newtonsoft.Json.JsonConvert.SerializeObject(@ViewBag.MaxTransaction);
+                <input name="transactionamount" type="text" ng-model="amount" ng-currency min="@minTransaction" max="@maxTransaction" currency-symbol="PW" hard-cap="true" />
+            }
+
+            <hr>
+
+            <div ng-show="SelectedRecipientName != null">
+                <p>Can commit transaction to: <b>{{SelectedRecipientName}}</b> Amount: <b>{{amount}} PW</b></p>
+
+                <a class="btn btn-success" ng-click="commitTransaction()">
+                    Commit
+                    <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div ng-show="SelectedRecipientName == null">
+                <p>Can't commit transaction.</p>
+
+                <a class="btn btn-danger" ng-click="cantTransmit('User not selected. Please, select existed user.')">
+                    Commit
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+            <div>
+        </div>
+    </div>
+</form>
+
+

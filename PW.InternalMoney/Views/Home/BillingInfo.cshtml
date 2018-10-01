@@ -1,0 +1,24 @@
+﻿@model PW.InternalMoney.Models.BillingAccount
+@{
+    ViewBag.Title = "Billing information";
+}
+
+
+<h2>@ViewBag.Title.</h2>
+
+
+<table border="0" align="center" cellpadding="5" cellspacing="0">
+
+    <tr>
+        <td width="40%">@Html.LabelFor(x => x.FirstName)</td>
+        <td width="60%" align="center"><p>@Model.FirstName</p></td>
+    </tr>
+    <tr>
+        <td width="40%">@Html.LabelFor(x => x.LastName)</td>
+        <td width="60%" align="center"><p>@Model.LastName</p></td>
+    </tr>
+    <tr>
+        <td width="40%">@Html.LabelFor(x => x.Balance)</td>
+        <td width="60%" align="center"><p>@Model.Balance</p></td>
+    </tr>
+</table>

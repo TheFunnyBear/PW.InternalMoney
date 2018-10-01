@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Can't creat transaction. Yourself transfer!";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>You can not transfer money to yourself!</p>
+
+<a href="@Url.Action("History", "Transaction" )" class="btn btn-info">
+    Show history
+    <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
+</a>
+
+<a href="@Url.Action("List", "Transaction" )" class="btn btn-info">
+    Show last transactions
+    <span class="glyphicon glyphicon glyphicon-transfer" aria-hidden="true"></span>
+</a>
+
+
